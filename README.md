@@ -5,7 +5,7 @@ I decided to make my own reliable and working implementation of global media key
 
 Simply dropping the executable in your startup folder(press win+r and type $shell:startup) is enough; Padlock does not have a gui and takes around 2-3 mb of ram at any given moment so it is very lightweight.
 
-> **Note**
+> **Note**<br>
 > Padlock is a Windows application.
 
 - ctrl-alt-{left,right} for prev/next song
