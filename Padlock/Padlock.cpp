@@ -68,23 +68,18 @@ int WINAPI wWinMain(
 
 GlobalSystemMediaTransportControlsSession Spotify::GetSpotifyGsmtcSession()
 {
-	// ideally there should be some kind of caching system in place for this function
 	auto sessionManager = GlobalSystemMediaTransportControlsSessionManager::RequestAsync().get();
 	for (GlobalSystemMediaTransportControlsSession s : sessionManager.GetSessions()) {
-		// std::ostringstream os;
-		// os << s.SourceAppUserModelId() << "\n";
 		if (s.SourceAppUserModelId() == L"SpotifyAB.SpotifyMusic_zpdnekdrzrea0!Spotify"
 				|| s.SourceAppUserModelId() == L"Spotify")
 			return s;
 	}
-	// using nullptr wherever possible(instead of NULL) is more sensible
 	return nullptr;
 }
 
 
 void Spotify::PreviousTrack()
 {
-	// as mentioned in Spotify::GetSpotifyGsmtcSession(), some caching here(and for the 2 other related funcs) would be ideal
 	if (auto s = Spotify::GetSpotifyGsmtcSession(); s != nullptr)
 		s.TrySkipPreviousAsync().get();
 }

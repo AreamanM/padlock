@@ -5,12 +5,9 @@
 
 ISimpleAudioVolume* GetSpotifySimpleAudioVolume()
 {
-	// not sure what the second parameter should be here, but this works for now
-	//
-	// also this might not be needed as winrt::init_apartment() is called in wWinMain()
-	//HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
-
 	// any of these pointers could be null due to an error, so this is a bit risky
+        //
+        // in practice these function calls should not fail on devices with a working audio output device
 	IMMDeviceEnumerator* deviceEnumerator;
 	HRESULT hr = CoCreateInstance(
 		CLSID_MMDeviceEnumerator, NULL,
@@ -45,7 +42,6 @@ ISimpleAudioVolume* GetSpotifySimpleAudioVolume()
 			ISimpleAudioVolume* simpleAudioVolume;
 			audioSessionControl2->QueryInterface(IID_ISimpleAudioVolume, (void**)&simpleAudioVolume);
 
-			// TODO: find a way to remove code duplication here and at the end of the func and loop(goto?)
 			audioSessionControl->Release();
 			audioSessionControl2->Release();
 			deviceEnumerator->Release();
@@ -65,7 +61,6 @@ ISimpleAudioVolume* GetSpotifySimpleAudioVolume()
 	audioSessionManager2->Release();
 	audioSessionEnumerator->Release();
 
-	// see the comment in GetSpotifyGsmtcSession()
 	return nullptr;
 }
 
